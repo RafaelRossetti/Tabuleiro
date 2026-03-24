@@ -2,11 +2,11 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nature Ludo: Reefs & Rainforests</title>
     <meta name="description" content="Um jogo de Ludo temático sobre a proteção de recifes e florestas tropicais.">
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
     <div id="app">
@@ -17,12 +17,10 @@
 
       <main class="game-container">
         <div id="ludo-board" class="ludo-board">
-          <!-- O tabuleiro será gerado via JS ou estruturado aqui -->
           <div class="center-hub">
-            <img src="/src/assets/board_center.png" alt="Hub da Natureza" class="center-img" />
+            <img src="/board_center.png" alt="Hub da Natureza" class="center-img" />
           </div>
           
-          <!-- Quadrantes (Bases) -->
           <div class="base forest" id="base-0">
             <div class="token-slot" data-index="0"></div>
             <div class="token-slot" data-index="1"></div>
@@ -47,15 +45,13 @@
             <div class="token-slot" data-index="2"></div>
             <div class="token-slot" data-index="3"></div>
           </div>
-
-          <!-- Caminhos serão gerados dinamicamente no JS para manter o HTML limpo -->
         </div>
 
         <aside class="dashboard">
           <div class="player-info">
             <h2 id="current-player-name">Vez de: <span class="name">Jaguar</span></h2>
             <div class="dice-container" id="dice-btn">
-              <img src="/src/assets/dice.png" alt="Dado da Natureza" id="dice-img" />
+              <img src="/dice.png" alt="Dado da Natureza" id="dice-img" />
               <div id="dice-value">?</div>
             </div>
           </div>
@@ -72,6 +68,6 @@
         <p>&copy; 2026 All in for Nature - Proteja o que você ama.</p>
       </footer>
     </div>
-    <script type="module" src="/main.js"></script>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
