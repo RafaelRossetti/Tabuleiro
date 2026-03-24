@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap');
+
+:root {
+  --forest-green: #2d6a4f;
+  --forest-light: #52b788;
+  --reef-blue: #0077b6;
+  --reef-light: #48cae4;
+  --solar-gold: #ffb703;
+  --wildlife-red: #d00000;
+  --bg-dark: #121212;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --text-primary: #f8f9fa;
+  --font-main: 'Outfit', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: radial-gradient(circle at center, #1a3a3a, var(--bg-dark));
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+#app {
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+header {
+  text-align: center;
+  animation: fadeInDown 1s ease-out;
+}
+
+header h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, var(--forest-light), var(--reef-light));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+/* Zonas de Ameaça e Proteção */
+.cell.threat {
+  background: rgba(208, 0, 0, 0.2) !important;
+  border: 1px solid var(--wildlife-red);
+  position: relative;
+}
+
+.cell.threat::after {
+  content: '⚠️';
+  font-size: 0.6rem;
+}
+
+.cell.home-stretch {
+  opacity: 0.6;
+}
+
+.cell.home-stretch.forest { background: var(--forest-green); }
+.cell.home-stretch.reef { background: var(--reef-blue); }
+.cell.home-stretch.solar { background: var(--solar-gold); }
+.cell.home-stretch.wildlife { background: var(--wildlife-red); }
+
+header p {
+  opacity: 0.8;
+  font-weight: 300;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.ludo-board {
+  width: 600px;
+  height: 600px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--glass-border);
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.center-hub {
+  grid-column: 7 / 10;
+  grid-row: 7 / 10;
+  z-index: 5;
+  border: 3px solid gold;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+}
+
+.center-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Bases */
+.base {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding: 20px;
+  gap: 15px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+}
+
+.base.forest { grid-column: 1 / 7; grid-row: 1 / 7; background-color: var(--forest-green); }
+.base.reef { grid-column: 10 / 16; grid-row: 1 / 7; background-color: var(--reef-blue); }
+.base.solar { grid-column: 1 / 7; grid-row: 10 / 16; background-color: var(--solar-gold); }
+.base.wildlife { grid-column: 10 / 16; grid-row: 10 / 16; background-color: var(--wildlife-red); }
+
+.token-slot {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Caminhos (Células Genéricas) */
+.cell {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.cell.path { background: rgba(255, 255, 255, 0.05); }
+.cell.safe { background: rgba(255, 255, 255, 0.2); }
+
+/* Dashboard */
+.dashboard {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: min-content;
+}
+
+.player-info {
+  text-align: center;
+}
+
+.player-info h2 .name {
+  display: block;
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+}
+
+.dice-container {
+  margin-top: 1rem;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.dice-container:hover { transform: scale(1.05); }
+.dice-container:active { transform: scale(0.95); }
+
+#dice-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+#dice-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+
+.game-log {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 10px;
+  height: 150px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  border-left: 3px solid var(--forest-light);
+}
+
+.btn-primary {
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--reef-blue), var(--forest-green));
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: filter 0.3s;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.2);
+}
+
+/* Animações */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes roll {
+  0% { transform: rotate(0) scale(1); }
+  25% { transform: rotate(90deg) scale(1.1); }
+  50% { transform: rotate(180deg) scale(0.9); }
+  75% { transform: rotate(270deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.rolling {
+  animation: roll 0.4s infinite linear;
+}
+
+/* Responsividade */
+@media (max-width: 1000px) {
+  .game-container {
+    grid-template-columns: 1fr;
+  }
+  .ludo-board {
+    width: 90vw;
+    height: 90vw;
+    max-width: 600px;
+    max-height: 600px;
+  }
+}
